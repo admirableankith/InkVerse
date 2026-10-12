@@ -103,13 +103,18 @@ const csrfProtection = (req, res, next) => {
   const customHeader = req.headers['x-requested-with'] || req.headers['x-blog-client'];
   const origin = req.headers['origin'] || req.headers['referer'];
   const clientUrl = process.env.CLIENT_URL;
+  const renderUrl = process.env.RENDER_EXTERNAL_URL;
 
   if (customHeader) {
     return next();
   }
 
-  // If origin matches CLIENT_URL or localhost in development
+  // If origin matches CLIENT_URL, RENDER_EXTERNAL_URL, or localhost in development
   if (origin && clientUrl && origin.startsWith(clientUrl)) {
+    return next();
+  }
+
+  if (origin && renderUrl && origin.startsWith(renderUrl)) {
     return next();
   }
 

@@ -1,4 +1,5 @@
 # Node dependencies
+node_modules
 node_modules/
 client/node_modules/
 npm-debug.log*
@@ -14,11 +15,13 @@ yarn-error.log*
 .env.production.local
 
 # Build outputs
+client/dist
 client/dist/
 dist/
 build/
 
 # Uploads and sensitive local data
+server/uploads
 server/uploads/*
 !server/uploads/.gitkeep
 server/data/db.json

@@ -30,7 +30,7 @@ app.use(helmet({
       styleSrc: ["'self'", "'unsafe-inline'", 'https://fonts.googleapis.com'],
       fontSrc: ["'self'", 'https://fonts.gstatic.com'],
       imgSrc: ["'self'", 'data:', 'blob:', 'https://images.unsplash.com', 'https://*.unsplash.com', 'https://res.cloudinary.com', 'https://*.cloudinary.com'],
-      connectSrc: ["'self'", process.env.CLIENT_URL || 'http://localhost:5173']
+      connectSrc: ["'self'", process.env.CLIENT_URL, process.env.RENDER_EXTERNAL_URL].filter(Boolean)
     }
   }
 }));
@@ -39,11 +39,18 @@ app.use(helmet({
 app.use(cookieParser());
 
 // 3. CORS Configuration with credentials
-const clientUrl = process.env.CLIENT_URL || 'http://localhost:5173';
+const clientUrl = process.env.CLIENT_URL;
+const renderUrl = process.env.RENDER_EXTERNAL_URL;
 app.use(cors({
   origin: (origin, callback) => {
-    // Allow non-browser requests (tools/curl) or matching client URLs
-    if (!origin || origin === clientUrl || (!isProduction && (origin.includes('localhost') || origin.includes('127.0.0.1')))) {
+    // Allow non-browser requests (tools/curl), matching client URLs, Render domain, or local dev
+    if (
+      !origin ||
+      !clientUrl ||
+      origin === clientUrl ||
+      (renderUrl && origin === renderUrl) ||
+      (!isProduction && (origin.includes('localhost') || origin.includes('127.0.0.1')))
+    ) {
       callback(null, true);
     } else {
       callback(new Error('Blocked by CORS policy'));
@@ -96,13 +103,7 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // 9. Health check endpoint
 app.get('/api/health', (req, res) => {
-  res.status(200).json({
-    ok: true,
-    status: 'ok',
-    timestamp: new Date().toISOString(),
-    service: 'Discover With Ankur - Production Blog API',
-    database: process.env.MONGO_URI ? 'mongodb' : 'json-fallback'
-  });
+  res.status(200).json({ ok: true });
 });
 
 // 10. API Routes
@@ -118,12 +119,12 @@ app.use('/api', (req, res) => {
 
 // 12. Serve built React frontend from client/dist and provide SPA catch-all in production
 if (isProduction) {
-  const clientDist = path.join(__dirname, '../client/dist');
+  const clientDist = path.resolve(__dirname, '../client/dist');
   app.use(express.static(clientDist));
 
   // Catch-all route to serve index.html for client-side routing (e.g. /about, /blogs/:slug, /admin/login)
   app.get('*', (req, res) => {
-    res.sendFile(path.join(clientDist, 'index.html'));
+    res.sendFile(path.resolve(clientDist, 'index.html'));
   });
 }
 
