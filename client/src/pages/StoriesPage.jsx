@@ -64,7 +64,7 @@ export default function StoriesPage() {
         </div>
         
         <h1 className="font-serif font-bold text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-app-main tracking-tight">
-          Personal Stories & Experiences
+          Publications
         </h1>
         
         <p className="text-sm sm:text-base text-app-muted max-w-2xl font-sans">
@@ -82,7 +82,7 @@ export default function StoriesPage() {
               : 'bg-app-surface hover:bg-app-surface-hover text-app-muted hover:text-app-main border-app-border'
           }`}
         >
-          All Stories
+          All Publications
         </button>
 
         {categories.map((cat) => (
@@ -127,7 +127,7 @@ export default function StoriesPage() {
               onClick={() => handleCategorySelect('All')}
               className="inline-flex items-center px-4 py-2.5 bg-primary-main text-white rounded-lg text-xs sm:text-sm font-semibold hover:bg-primary-hover transition-colors min-h-[44px]"
             >
-              Show All Stories
+              Show All Publications
             </button>
           </div>
         </div>

@@ -105,17 +105,17 @@ export default function Footer() {
               </li>
               <li>
                 <Link to="/blogs" className="inline-block py-1 hover:text-primary-main transition-colors">
-                  Blogs & Essays
+                  Article
                 </Link>
               </li>
               <li>
                 <Link to="/stories" className="inline-block py-1 hover:text-primary-main transition-colors">
-                  Personal Stories
+                  Publications
                 </Link>
               </li>
               <li>
                 <Link to="/about" className="inline-block py-1 hover:text-primary-main transition-colors">
-                  About the Writer
+                  Portfolio
                 </Link>
               </li>
             </ul>

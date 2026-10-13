@@ -88,7 +88,7 @@ export default function BlogsPage() {
         </div>
         
         <h1 className="font-serif font-bold text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-app-main tracking-tight">
-          Blogs & Articles
+          Article
         </h1>
         
         <p className="text-sm sm:text-base text-app-muted max-w-2xl font-sans">

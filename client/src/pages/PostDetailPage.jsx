@@ -135,7 +135,7 @@ export default function PostDetailPage() {
             className="inline-flex items-center gap-2 px-5 py-2.5 bg-primary-main text-white text-xs sm:text-sm font-medium rounded-lg hover:bg-primary-hover transition-colors min-h-[44px]"
           >
             <ArrowLeft className="w-4 h-4" />
-            <span>Back to All Blogs</span>
+            <span>Back to Article</span>
           </Link>
         </div>
       </div>
@@ -160,7 +160,7 @@ export default function PostDetailPage() {
             className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-medium text-app-muted hover:text-primary-main transition-colors min-h-[44px] py-1"
           >
             <ArrowLeft className="w-4 h-4" />
-            <span>Back to {post.type === 'story' ? 'Stories' : 'Blogs & Articles'}</span>
+            <span>Back to {post.type === 'story' ? 'Publications' : 'Article'}</span>
           </Link>
 
           <div className="flex items-center gap-2">
